@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="wrap d-flex justify-between bg-img">
+        <div class="sidebar">
+
+        </div>
+        <div class="chat">
+            <div class="chat__header">
+                Чат с <span class="collocutorName"></span>
+            </div>
+            <div class="chat__messages">
+
+            </div>
+            <div class="chat__sendingBlock ">
+                <textarea name="" cols="30" rows="10" placeholder="Введите сообщение" class="chat__sendingBlock-message"></textarea>
+                <br>
+                <input type="button" class="chat__sendingBlock-send" value="Отправить" />
+            </div>
+        </div>
+    </div>    
+    <script src="https://unpkg.com/@microsoft/signalr@3.1.0/dist/browser/signalr.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
