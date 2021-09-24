@@ -17,8 +17,7 @@ namespace GoodChildren.Controllers
         {
             db = context;
         }
-        [HttpGet]
-        public IActionResult Login()
+        public IActionResult Autorithe()
         {
             return View();
         }
@@ -28,7 +27,7 @@ namespace GoodChildren.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                User user = await db.Users.FirstOrDefaultAsync(u => u.LoginEmail == model.Email && u.Password == model.Password);
                 if (user != null)
                 {
                     await Authenticate(model.Email); // аутентификация
@@ -39,22 +38,18 @@ namespace GoodChildren.Controllers
             }
             return View(model);
         }
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                User user = await db.Users.FirstOrDefaultAsync(u => u.LoginEmail == model.Email);
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    db.Users.Add(new User { Email = model.Email, Password = model.Password });
+                    db.Users.Add(new User { LoginEmail = model.Email, Password = model.Password, BirthDate = model.BirthDate, cityChillHouse = model.cityChillHouse, fullName= model.fullName,
+                    PhoneNum= model.PhoneNum, Role=model.Role});
                     await db.SaveChangesAsync();
 
                     await Authenticate(model.Email); // аутентификация

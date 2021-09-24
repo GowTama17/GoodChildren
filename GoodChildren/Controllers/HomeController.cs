@@ -27,18 +27,18 @@ namespace GoodChildren.Controllers
             List<User> Test = db.Users.ToList();
             List<UserView> Model = new List<UserView>();
             for (int i = 0; i < Test.Count; i++)
-                Model.Add(new UserView() { Id = Test[i].Id, Email = Test[i].Email });
+                Model.Add(new UserView() { Id = Test[i].Id, Email = Test[i].LoginEmail });
             return View(Model);
         }
         public IActionResult message(int? id)
         {
             List<User> Test = db.Users.ToList();
             User Name = Test.FirstOrDefault(u => u.Id == id);
-            User MyName = Test.FirstOrDefault(u => u.Email == User.Identity.Name);
+            User MyName = Test.FirstOrDefault(u => u.LoginEmail == User.Identity.Name);
             Name.Password = " ";
             Chat TestChat = db.Chats.FirstOrDefault(u => (u.ReciverId == MyName.Id && u.SenderId == Name.Id) || (u.ReciverId == Name.Id && u.SenderId == MyName.Id));
             if (TestChat == null) TestChat = new Chat() { Id = 0 };
-            ChatView model = new ChatView() { chatId = TestChat.Id, ReciverId = Name.Id, SenderId = MyName.Id, ReciverName = Name.Email, SenderName = MyName.Email };
+            ChatView model = new ChatView() { chatId = TestChat.Id, ReciverId = Name.Id, SenderId = MyName.Id, ReciverName = Name.LoginEmail, SenderName = MyName.LoginEmail };
             return View(model);
         }
         [HttpPost]

@@ -10,7 +10,7 @@ namespace GoodChildren.ViewModels
     public class LoginModel
     {
         
-            [Required(ErrorMessage = "Не указан Email")]
+            [Required(ErrorMessage = "Не указан логин или номер телефона")]
             public string Email { get; set; }
 
             [Required(ErrorMessage = "Не указан пароль")]
