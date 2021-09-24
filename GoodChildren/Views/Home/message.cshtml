@@ -28,7 +28,7 @@
             <div class="chat__sendingBlock ">
                 <textarea name="" cols="30" rows="10" placeholder="Введите сообщение" class="chat__sendingBlock-message"></textarea>
                 <br>
-                <input type="button" class="chat__sendingBlock-send" value="Отправить" />
+                <input type="submit" class="chat__sendingBlock-send" value="Отправить" />
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@ document.querySelector(".chat__sendingBlock-send").addEventListener("click", fun
 let addComment = (message, username, time, comments) =>{
     let commentElem = document.createElement("div")
     commentElem.classList.add("commentsListElem");
-    let comment = documentModeReciverNamelodelcreateElement("div");
+    let comment = document.createElement("div");
     comment.classList.add("commentsListTitle");
     let author = document.createElement("p");
     author.classList.add("commentName")
