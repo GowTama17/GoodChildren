@@ -14,42 +14,37 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div class="wrap d-flex justify-between bg-img">
-        <div class="sidebar">
-        </div>
-        <div class="chat">
-            <div class="chat__header">
-                Чат с @Model.ReciverName <span class="collocutorName"></span>
+    <div class="chat__container ">
+        <div class="chat__block d-flex justify-between">
+            <div class="chat__header d-flex alighn-center">
+                <div class="chat__header-userBlock d-flex justufy-between alighn-center">
+                    <div class="chat__header-userIcon d-flex alighn-center">СЮ</div>
+                    <div class="chat__header-userNmae">@Model.ReciverName</div>
+                </div>
             </div>
-            <div class="chat__messages">
-                @if (ViewBag.Messanges != null)
-                {
-                    for (int i = 0; i < ViewBag.Messanges.Count; i++)
+            <div>
+                <div class="chat__messages">
+                    @if (ViewBag.Messanges != null)
                     {
-                        <div class="commentsListElem">
-                            <div class="commentsListTitle">
-                                <p class="commentName">
-                                    @if (ViewBag.Messanges[i].SenderId == Model.SenderId)
-                                        @Model.SenderName
-                                    else
-                                        @Model.ReciverName
-                                </p>
-                                <p>@ViewBag.Messanges[i].LineTime</p>
+                        for (int i = 0; i < ViewBag.Messanges.Count; i++)
+                        {
+                            <div class="chat__message d-flex">
+                                <div class="chat__message-userIcon d-flex justufy-between alighn-center ">СЮ</div>
+                                <div class="chat__message-block d-flex justify-between alighn-center">
+                                    <div class="chat__message-val">
+                                        @ViewBag.Messanges[i].ChatLine
+                                        <div class="chat__message-time">@ViewBag.Messanges[i].LineTime</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="commentsText">
-                                @ViewBag.Messanges[i].ChatLine
-                            </div>
-                        </div>
+                        }
                     }
-                }
-            </div>
-            @{ 
-                string[] test = Model.ReciverName.Split(' ');
-            }
-            <div class="chat__sendingBlock ">
-                <textarea name="" cols="30" rows="10" placeholder="Введите сообщение" class="chat__sendingBlock-message"></textarea>
-                <br>
-                <input type="submit" class="chat__sendingBlock-send" value="Отправить" />
+                </div>
+                <div class="chat__sendBLock d-flex justify-between">
+                    <div class="chat__sendfile"><img src="/img/vuesax-linear-paperclip-2.png" alt=""></div>
+                    <textarea rows="1" placeholder="Напишите сообщение..." class="chat__message-value"></textarea>
+                    <button class="chat__sendMessage"><img src="/img/vuesax-linear-send.png" alt=""></button>
+                </div>
             </div>
         </div>
     </div>
@@ -123,6 +118,17 @@ const hubConnection = new signalR.HubConnectionBuilder()
 
     let addComment = (message, username, time, comments) => {
         let commentElem = document.createElement("div")
+        commentElem.classList.add("chat__message");
+        commentElem.innerHTML = `
+            <div class="chat__message-userIcon d-flex justufy-between alighn-center ">СЮ</div>
+            <div class="chat__message-block d-flex justify-between alighn-center">
+                <div class="chat__message-val"> ${message}
+                    <div class="chat__message-time">${time}</div>
+                </div>
+            </div>
+        `
+
+        /*let commentElem = document.createElement("div")
         commentElem.classList.add("commentsListElem");
         let comment = document.createElement("div");
         comment.classList.add("commentsListTitle");
@@ -137,7 +143,7 @@ const hubConnection = new signalR.HubConnectionBuilder()
         comment = document.createElement("p")
         comment.innerText = message;
         comment.classList.add("commentsText");
-        commentElem.appendChild(comment);
+        commentElem.appendChild(comment);*/
         comments.appendChild(commentElem);
     }
 
