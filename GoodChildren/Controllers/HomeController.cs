@@ -42,15 +42,21 @@ namespace GoodChildren.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> message(Chat chat)
+        public async Task message(Chat chat)
         {
             if (chat.ChatId == 0)
             {
-                chat.ChatId = db.Chats.Max().ChatId + 1;
+                try
+                {
+                    chat.ChatId = db.Chats.Max(t => t.ChatId) + 1;
+                }
+                catch
+                {
+                    chat.ChatId = 1;
+                }
             }
             await db.Chats.AddAsync(chat);
             await db.SaveChangesAsync();
-            return View();
         }
         [HttpGet]
         public List<Chat> DownloadMessage(ChatView model)
