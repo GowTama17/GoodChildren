@@ -43,10 +43,10 @@ let SenderName = "@Model.SenderName";
 let ReciverId = @Model.ReciverId;
 let ReciverName = "@Model.ReciverName";
 
-function GetServ(url) {
+function GetServ(url, data) {
     var xhr = new XMLHttpRequest()
     xhr.open('GET', url, false);
-    xhr.send();
+    xhr.send(data);
     xhr.onreadystatechange = function () {
         return xhr.responseText;
     }
@@ -125,8 +125,15 @@ document.querySelector(".chat__sendingBlock-send").addEventListener("click", fun
     comment.classList.add("commentsText");
     commentElem.appendChild(comment);
     comments.appendChild(commentElem);
-}
-    let messages = GetServ("/Home/DownloadMessage")
+    }
+    const data = new FormData();
+    data.append("ChatId", chatId);
+    data.append("SenderId", SenderId);
+    data.append("ReciverId", ReciverId);
+    data.append("SenderName", SenderName);
+    data.append("ReciverName", ReciverName);
+    let messages = GetServ("/Home/DownloadMessage", data)
+    
     console.log(messages)
     for (let item of messages) {
         addComment(item.ChatLine, SenderName, item.LineTime, document.querySelector(".chat__messages"))
