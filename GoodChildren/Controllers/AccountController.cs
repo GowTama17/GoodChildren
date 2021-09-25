@@ -21,6 +21,10 @@ namespace GoodChildren.Controllers
         {
             return View();
         }
+        public IActionResult Home()
+        {
+            return RedirectToAction("Index", "Home");
+        }
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
         {

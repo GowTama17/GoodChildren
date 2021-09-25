@@ -1,8 +1,9 @@
-﻿function postServ(send, url) {
-    fetch(url, {
+﻿async function postServ(data, url) {
+    const response = fetch(url, {
         method: "POST",
         body: data
     })
+    if ((await response).status == 200) document.location.href = "Home"
 }
 
 let autorization = document.querySelector(".autorization");
@@ -167,15 +168,7 @@ volunteer2Continue.addEventListener("click", () => {
     let error = document.querySelector(".regist-vol2 .error");
     if (login.value != "" && password.value != "" && passwordTwo.value != "") {
         if (password.value == passwordTwo.value) {
-            let data = {
-                Email: login.value,
-                Password: password.value,
-                Role: "Волонтёр",
-                fullName: name.value,
-                BirthDate: date.value,
-                cityChillHouse: `${city.value}`,
-                PhoneNum: phone.value
-            }
+           
             const data = new FormData();
             data.append("Email", login.value);
             data.append("Password", password.value);
