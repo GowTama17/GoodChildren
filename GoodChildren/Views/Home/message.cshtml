@@ -22,7 +22,26 @@
                 Чат с @Model.ReciverName <span class="collocutorName"></span>
             </div>
             <div class="chat__messages">
-
+                @if (ViewBag.Messanges != null)
+                {
+                    for (int i = 0; i < ViewBag.Messanges.Count; i++)
+                    {
+                        <div class="commentsListElem">
+                            <div class="commentsListTitle">
+                                <p class="commentName">
+                                    @if (ViewBag.Messanges[i].SenderId == Model.SenderId)
+                                        @Model.SenderName
+                                    else
+                                        @Model.ReciverName
+                                </p>
+                                <p>@ViewBag.Messanges[i].LineTime</p>
+                            </div>
+                            <div class="commentsText">
+                                @ViewBag.Messanges[i].ChatLine
+                            </div>
+                        </div>
+                    }
+                }
             </div>
             <div class="chat__sendingBlock ">
                 <textarea name="" cols="30" rows="10" placeholder="Введите сообщение" class="chat__sendingBlock-message"></textarea>
@@ -31,11 +50,8 @@
             </div>
         </div>
     </div>
-</body>
-</html>
-
-<script src="https://unpkg.com/@@microsoft/signalr@3.1.0/dist/browser/signalr.min.js"></script>
-<script charset="utf-8" type="text/javascript">
+    <script src="https://unpkg.com/@@microsoft/signalr@3.1.0/dist/browser/signalr.min.js"></script>
+    <script charset="utf-8" type="text/javascript">
 let chatId = @Model.chatId;
 let SenderId = @Model.SenderId;
 let SenderName = "@Model.SenderName";
@@ -142,20 +158,7 @@ const isValid = (str) =>{
     return !/[~`#$\^&\[\]\\';/{}|\\<>]/g.test(str);
 }
     hubConnection.start();
-</script>
-@if (ViewBag.Messanges != null)
-{
-    for (int i = 0; i < ViewBag.Messanges.Count; i++)
-    {
-        <script charset="utf-8" type="text/javascript">
-            if (true) {
-                let item = {
-                    ChatLine: " @ViewBag.Messanges[i].ChatLine ",
-                    SenderName: (@ViewBag.Messanges[i].SenderId == @Model.SenderId)?`${"@Model.SenderName"}`:`${ "@Model.ReciverName"}`,
-                    LineTime: "@ViewBag.Messanges[i].LineTime",
-                }
-                addComment(item.ChatLine, item.SenderName, item.LineTime, document.querySelector(".chat__messages"))
-            }
-        </script>
-    }
-}
+    </script>
+</body>
+</html>
+
