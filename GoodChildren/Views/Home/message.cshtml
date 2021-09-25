@@ -117,8 +117,7 @@ document.querySelector(".chat__sendingBlock-send").addEventListener("click", fun
     author.innerText = username;
     comment.appendChild(author)
     author = document.createElement("p");
-    let date = new Date();
-    author.innerText = `${(time.date == `${date.getDate()}.${(date.getMonth() + 1 < 10)? `0${date.getMonth() + 1}`: date.getMonth() + 1}`)? `Сегодня ${time.time}` :`${time.date} ${time.time}`}`
+    author.innerText = time
     comment.appendChild(author);
     commentElem.appendChild(comment);
     comment = document.createElement("p")
