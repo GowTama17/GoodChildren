@@ -74,17 +74,6 @@ const hubConnection = new signalR.HubConnectionBuilder()
     .build();
 // let chatContainer = document.createElement("div");
 // commentContainer.classList.add("chatContainer");
-let user = {
-    username: "Сагариев Юсуп Ибрагимович",
-    usernameChat: "Сагариев Юсуп",
-    id: "4855",
-}
-let userRecivier = {
-    username: "Бараев Аюб Алиханович",
-    usernameChat: "Бараев Аюб",
-    id: "2378",
-    }
-
     async function postServ(data, url) {
         fetch(url, {
             method: "POST",
@@ -92,11 +81,10 @@ let userRecivier = {
         })
     }
 
-    hubConnection.on("Receive", function (message, userName) {
+    hubConnection.on("Receive", function (data, userName) {
         if (userName == ReciverName) {
             let date = new Date()
-            let datevalue = { date: `${date.getDate()}.${(date.getMonth() + 1 < 10) ? `0${date.getMonth() + 1}` : date.getMonth() + 1}`, time: `${new Date(01, 11, 2020, date.getUTCHours() + 3).getHours()}:${(date.getUTCMinutes() + 1 < 10) ? `0${date.getUTCMinutes() + 1}` : date.getUTCMinutes() + 1}` };
-            addComment(message, userName, datevalue, document.querySelector(".chat__messages"))
+            addComment(data.ChatLine, userName, data.LineTime, document.querySelector(".chat__messages"))
 
         }
 
@@ -105,7 +93,6 @@ let userRecivier = {
 document.querySelector(".chat__sendingBlock-send").addEventListener("click", function (e) {
     let message = document.querySelector(".chat__sendingBlock-message").value;
     let to = ReciverName;
-    hubConnection.invoke("Send", message, to);
     let date = new Date()
     let datevalue = {date: `${date.getDate()}.${(date.getMonth() + 1 < 10)? `0${date.getMonth() + 1}`: date.getMonth() + 1}`,   time: `${new Date(01, 11, 2020, date.getUTCHours() + 3).getHours()}:${(date.getUTCMinutes() + 1 < 10)? `0${date.getUTCMinutes() + 1}`: date.getUTCMinutes() + 1}`}
     addComment(message, SenderName, datevalue, document.querySelector(".chat__messages"))
@@ -119,7 +106,7 @@ document.querySelector(".chat__sendingBlock-send").addEventListener("click", fun
     data.append("LineTime", date);
     data.append("lookIt", "true");
     postServ(data, "/Home/message")
-
+    hubConnection.invoke("Send", data, to);
 });
 
     let addComment = (message, username, time, comments) =>{
