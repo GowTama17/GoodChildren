@@ -74,35 +74,37 @@ const hubConnection = new signalR.HubConnectionBuilder()
         })
     }
 
-    hubConnection.on("Receive", function (data, userName) {
+    hubConnection.on("Receive", function (messa, chatId, reciverId, LineTime, userName) {
+        console.log(userName, ReciverName )
         if (userName == ReciverName) {
-            let date = new Date()
-            addComment(data.chatLine, userName, data.lineTime, document.querySelector(".chat__messages"))
-            const mess = new FormData();
-            mess.append("ChatId", data.chatId);
-            mess.append("SenderId", data.senderId);
-            mess.append("ReciverId", data.reciverId);
-            mess.append("ChatLine", message);
-            postServ(mess, "/Home/LookMesseng")
-            console.log(mess)
+            addComment(messa, userName, LineTime, document.querySelector(".chat__messages"))
+            console.log(SenderId, chatId)
+            let LookMeseng = new FormData;
+            LookMeseng.append("UserId", SenderId);
+            LookMeseng.append("ChatId", chatId);
+            LookMeseng.append("State", false);
+            postServ(LookMeseng, "/Home/LookMesseng")
+            console.log(data)
         }
 
 });
 
     document.querySelector(".chat__sendingBlock-send").addEventListener("click", function (e) {
     let message = document.querySelector(".chat__sendingBlock-message").value;
-    let to = ReciverName;
-    let date = new Date()
-    let datevalue = {date: `${date.getDate()}.${(date.getMonth() + 1 < 10)? `0${date.getMonth() + 1}`: date.getMonth() + 1}`,   time: `${new Date(01, 11, 2020, date.getUTCHours() + 3).getHours()}:${(date.getUTCMinutes() + 1 < 10)? `0${date.getUTCMinutes() + 1}`: date.getUTCMinutes() + 1}`}
-    addComment(message, SenderName, datevalue, document.querySelector(".chat__messages"))
-    date.setHours(date.getUTCHours() + 3)
+        let to = ReciverName;
         let messa = {
-            chatId: @Model.chatId,
+            Id:0,
+            ChatId: @Model.chatId,
             SenderId: @Model.SenderId,
             ReciverId: @Model.ReciverId,
             ChatLine: message,
-            lookIt: true
+            LineTime: new Date() //`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
         }
+    let date = new Date()
+        let datevalue = { date: `${date.getDate()}.${(date.getMonth() + 1 < 10) ? `0${date.getMonth() + 1}` : date.getMonth() + 1}`, time: `${new Date(01, 11, 2020, date.getUTCHours() + 3).getHours()}:${(date.getUTCMinutes() + 1 < 10) ? `0${date.getUTCMinutes() + 1}` : date.getUTCMinutes() + 1}` }
+        addComment(message, SenderName, messa.LineTime, document.querySelector(".chat__messages"))
+    date.setHours(date.getUTCHours() + 3)
+
     const data = new FormData();
     data.append("ChatId", chatId);
     data.append("SenderId", SenderId);
@@ -110,7 +112,8 @@ const hubConnection = new signalR.HubConnectionBuilder()
     data.append("ChatLine", message);
     data.append("LineTime", `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
         postServ(data, "/Home/message")
-        hubConnection.invoke("Send", messa, to);
+        console.log(messa)
+        hubConnection.invoke("Send", messa.ChatLine, messa.ChatId, messa.ReciverId, messa.LineTime, to);
 
         console.log(`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
 });
@@ -135,7 +138,7 @@ const hubConnection = new signalR.HubConnectionBuilder()
         comments.appendChild(commentElem);
     }
 
-const isValid = (str) =>{
+    const isValid = (str) =>{
     return !/[~`#$\^&\[\]\\';/{}|\\<>]/g.test(str);
 }
     hubConnection.start();

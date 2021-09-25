@@ -9,6 +9,8 @@ namespace GoodChildren.Models
 {
     public class UserContext : DbContext
     {
+        public DbSet<Spons> Sponsers { get; set; }
+        public DbSet<Sobytiya> Events { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Chat> Chats { get; set; }
         public DbSet<ChatState> ChatStates { get; set; }

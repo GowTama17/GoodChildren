@@ -1,4 +1,5 @@
 ﻿using GoodChildren.Models;
+using GoodChildren.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -60,10 +61,10 @@ namespace GoodChildren.Controllers
                 catch
                 {
                     chat.ChatId = 1;
+                    await db.ChatStates.AddAsync(new ChatState() { ChatId = chat.ChatId, UserId = chat.SenderId, State = true });
+                    await db.ChatStates.AddAsync(new ChatState() { ChatId = chat.ChatId, UserId = chat.ReciverId, State = true });
                 }
             }
-            await db.ChatStates.AddAsync(new ChatState() { ChatId = chat.ChatId, UserId = chat.SenderId, State = true });
-            await db.ChatStates.AddAsync(new ChatState() { ChatId = chat.ChatId, UserId = chat.ReciverId, State = true });
             await db.Chats.AddAsync(chat);
             await db.SaveChangesAsync();
         }
@@ -79,11 +80,10 @@ namespace GoodChildren.Controllers
             else return null;
         }
         [HttpPost]
-        public async void LookMesseng(Chat model)
+        public async void LookMesseng(LookMeseng model, UserContext db)
         {
-            ChatState test = db.ChatStates.FirstOrDefault(u => u.UserId == model.ReciverId && u.ChatId == model.ChatId);
-            test.State = false;
-            db.ChatStates.Update(test);
+            ChatState test = db.ChatStates.FirstOrDefault(u => u.UserId == model.UserId && u.ChatId == model.ChatId);
+            test.State = model.State;
             await db.SaveChangesAsync();
         }
         public IActionResult Privacy()
