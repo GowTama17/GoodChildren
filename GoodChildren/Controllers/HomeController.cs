@@ -62,6 +62,8 @@ namespace GoodChildren.Controllers
                     chat.ChatId = 1;
                 }
             }
+            await db.ChatStates.AddAsync(new ChatState() { ChatId = chat.ChatId, UserId = chat.SenderId, State = true });
+            await db.ChatStates.AddAsync(new ChatState() { ChatId = chat.ChatId, UserId = chat.ReciverId, State = true });
             await db.Chats.AddAsync(chat);
             await db.SaveChangesAsync();
         }
@@ -79,7 +81,9 @@ namespace GoodChildren.Controllers
         [HttpPost]
         public async void LookMesseng(Chat model)
         {
-            db.Chats.Update(model);
+            ChatState test = db.ChatStates.FirstOrDefault(u => u.UserId == model.ReciverId && u.ChatId == model.ChatId);
+            test.State = false;
+            db.ChatStates.Update(test);
             await db.SaveChangesAsync();
         }
         public IActionResult Privacy()

@@ -14,7 +14,6 @@ namespace GoodChildren.Models
             public int ReciverId { get; set; }
             public string ChatLine { get; set; }
             public DateTime LineTime { get; set; }
-            public bool lookIt { get; set; }
     }
     public class ChatView
     {
@@ -24,5 +23,12 @@ namespace GoodChildren.Models
         public int ReciverId { get; set; }
         public string ReciverName { get; set; }
 
+    }
+    public class ChatState
+    {
+        public int Id { get; set; }
+        public int ChatId { get; set; }
+        public int UserId { get; set; }
+        public bool State { get; set; }
     }
 }

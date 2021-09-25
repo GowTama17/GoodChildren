@@ -51,7 +51,11 @@
         </div>
     </div>
     <script src="https://unpkg.com/@@microsoft/signalr@3.1.0/dist/browser/signalr.min.js"></script>
-    <script charset="utf-8" type="text/javascript">
+    
+</body>
+</html>
+
+<script charset="utf-8" type="text/javascript">
 let chatId = @Model.chatId;
 let SenderId = @Model.SenderId;
 let SenderName = "@Model.SenderName";
@@ -73,8 +77,14 @@ const hubConnection = new signalR.HubConnectionBuilder()
     hubConnection.on("Receive", function (data, userName) {
         if (userName == ReciverName) {
             let date = new Date()
-            addComment(data.ChatLine, userName, data.LineTime, document.querySelector(".chat__messages"))
-
+            addComment(data.chatLine, userName, data.lineTime, document.querySelector(".chat__messages"))
+            const mess = new FormData();
+            mess.append("ChatId", data.chatId);
+            mess.append("SenderId", data.senderId);
+            mess.append("ReciverId", data.reciverId);
+            mess.append("ChatLine", message);
+            postServ(mess, "/Home/LookMesseng")
+            console.log(mess)
         }
 
 });
@@ -86,47 +96,47 @@ const hubConnection = new signalR.HubConnectionBuilder()
     let datevalue = {date: `${date.getDate()}.${(date.getMonth() + 1 < 10)? `0${date.getMonth() + 1}`: date.getMonth() + 1}`,   time: `${new Date(01, 11, 2020, date.getUTCHours() + 3).getHours()}:${(date.getUTCMinutes() + 1 < 10)? `0${date.getUTCMinutes() + 1}`: date.getUTCMinutes() + 1}`}
     addComment(message, SenderName, datevalue, document.querySelector(".chat__messages"))
     date.setHours(date.getUTCHours() + 3)
-    
+        let messa = {
+            chatId: @Model.chatId,
+            SenderId: @Model.SenderId,
+            ReciverId: @Model.ReciverId,
+            ChatLine: message,
+            lookIt: true
+        }
     const data = new FormData();
     data.append("ChatId", chatId);
     data.append("SenderId", SenderId);
     data.append("ReciverId", ReciverId);
     data.append("ChatLine", message);
-    data.append("LineTime", `${date.getDate}.${date.getMonth + 1}.${date.getFullYear} ${date.getHours}:${date.getMinutes}:${date.getSeconds}`);
-    data.append("lookIt", "true");
-    postServ(data, "/Home/message")
-        hubConnection.invoke("Send", data, to);
+    data.append("LineTime", `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
+        postServ(data, "/Home/message")
+        hubConnection.invoke("Send", messa, to);
 
-        console.log(`${date.getDate}.${date.getMonth + 1}.${date.getFullYear} ${date.getHours}:${date.getMinutes}:${date.getSeconds}`)
+        console.log(`${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
 });
 
-    let addComment = (message, username, time, comments) =>{
-    let commentElem = document.createElement("div")
-    commentElem.classList.add("commentsListElem");
-    let comment = document.createElement("div");
-    comment.classList.add("commentsListTitle");
-    let author = document.createElement("p");
-    author.classList.add("commentName");
-    author.innerText = username;
-    comment.appendChild(author)
-    author = document.createElement("p");
-    author.innerText = time
-    comment.appendChild(author);
-    commentElem.appendChild(comment);
-    comment = document.createElement("p")
-    comment.innerText = message;
-    comment.classList.add("commentsText");
-    commentElem.appendChild(comment);
-    comments.appendChild(commentElem);
-    
-
-    console.log(" @ViewBag.Messanges[3].ChatLine ")
+    let addComment = (message, username, time, comments) => {
+        let commentElem = document.createElement("div")
+        commentElem.classList.add("commentsListElem");
+        let comment = document.createElement("div");
+        comment.classList.add("commentsListTitle");
+        let author = document.createElement("p");
+        author.classList.add("commentName");
+        author.innerText = username;
+        comment.appendChild(author)
+        author = document.createElement("p");
+        author.innerText = time
+        comment.appendChild(author);
+        commentElem.appendChild(comment);
+        comment = document.createElement("p")
+        comment.innerText = message;
+        comment.classList.add("commentsText");
+        commentElem.appendChild(comment);
+        comments.appendChild(commentElem);
+    }
 
 const isValid = (str) =>{
     return !/[~`#$\^&\[\]\\';/{}|\\<>]/g.test(str);
 }
     hubConnection.start();
-    </script>
-</body>
-</html>
-
+</script>

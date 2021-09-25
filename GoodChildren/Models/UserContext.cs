@@ -11,6 +11,7 @@ namespace GoodChildren.Models
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Chat> Chats { get; set; }
+        public DbSet<ChatState> ChatStates { get; set; }
         public UserContext(DbContextOptions<UserContext> options)
             : base(options)
         {

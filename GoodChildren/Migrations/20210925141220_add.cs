@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GoodChildren.Migrations
 {
-    public partial class start : Migration
+    public partial class add : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,8 +17,7 @@ namespace GoodChildren.Migrations
                     SenderId = table.Column<int>(type: "int", nullable: false),
                     ReciverId = table.Column<int>(type: "int", nullable: false),
                     ChatLine = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LineTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    lookIt = table.Column<bool>(type: "bit", nullable: false)
+                    LineTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
