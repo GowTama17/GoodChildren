@@ -149,12 +149,14 @@ const isValid = (str) =>{
     for (int i = 0; i < ViewBag.Messanges.Count; i++)
     {
         <script>
-        let item = {
-            ChatLine: "@ViewBag.Messanges[i].ChatLine",
-            SenderName: (@ViewBag.Messanges[i].SenderId == @Model.SenderId)?`${"@Model.SenderName"}`:`${ "@Model.ReciverName"}`,
-            LineTime: @ViewBag.Messanges[i].LineTime,
-        }
-        addComment(item.ChatLine, item.SenderName, item.LineTime, document.querySelector(".chat__messages"))
+            if (true) {
+                let item = {
+                    ChatLine: "@ViewBag.Messanges[i].ChatLine",
+                    SenderName: (@ViewBag.Messanges[i].SenderId == @Model.SenderId)?`${"@Model.SenderName"}`:`${ "@Model.ReciverName"}`,
+                    LineTime: "@ViewBag.Messanges[i].LineTime",
+                }
+                addComment(item.ChatLine, item.SenderName, item.LineTime, document.querySelector(".chat__messages"))
+            }
         </script>
     }
 }
