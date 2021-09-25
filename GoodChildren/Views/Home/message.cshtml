@@ -16,7 +16,6 @@
 <body>
     <div class="wrap d-flex justify-between bg-img">
         <div class="sidebar">
-
         </div>
         <div class="chat">
             <div class="chat__header">
@@ -36,7 +35,7 @@
 </html>
 
 <script src="https://unpkg.com/@@microsoft/signalr@3.1.0/dist/browser/signalr.min.js"></script>
-<script>
+<script charset="utf-8" type="text/javascript">
 let chatId = @Model.chatId;
 let SenderId = @Model.SenderId;
 let SenderName = "@Model.SenderName";
@@ -92,7 +91,7 @@ document.querySelector(".chat__sendingBlock-send").addEventListener("click", fun
     let to = ReciverName;
     hubConnection.invoke("Send", message, to);
     let date = new Date()
-    let datevalue = {date: `${date.getDate()}.${(date.getMonth() + 1 < 10)? `0${date.getMonth() + 1}`: date.getMonth() + 1}`,   time: `${new Date(01, 11, 2020, date.getUTCHours() + 3).getHours()}:${(date.getUTCMinutes() + 1 < 10)? `0${date.ModelochatIddeletUTCMinutes() + 1}`: date.getUTCMinutes() + 1}`}
+    let datevalue = {date: `${date.getDate()}.${(date.getMonth() + 1 < 10)? `0${date.getMonth() + 1}`: date.getMonth() + 1}`,   time: `${new Date(01, 11, 2020, date.getUTCHours() + 3).getHours()}:${(date.getUTCMinutes() + 1 < 10)? `0${date.getUTCMinutes() + 1}`: date.getUTCMinutes() + 1}`}
     addComment(message, SenderName, datevalue, document.querySelector(".chat__messages"))
     date.setHours(date.getUTCHours() + 3)
     console.log(date)
@@ -137,7 +136,7 @@ document.querySelector(".chat__sendingBlock-send").addEventListener("click", fun
 
     console.log(messages)
 
-
+    console.log(" @ViewBag.Messanges[3].ChatLine ")
 
 const isValid = (str) =>{
     return !/[~`#$\^&\[\]\\';/{}|\\<>]/g.test(str);
@@ -148,10 +147,10 @@ const isValid = (str) =>{
 {
     for (int i = 0; i < ViewBag.Messanges.Count; i++)
     {
-        <script>
+        <script charset="utf-8" type="text/javascript">
             if (true) {
                 let item = {
-                    ChatLine: "@ViewBag.Messanges[i].ChatLine",
+                    ChatLine: " @ViewBag.Messanges[i].ChatLine ",
                     SenderName: (@ViewBag.Messanges[i].SenderId == @Model.SenderId)?`${"@Model.SenderName"}`:`${ "@Model.ReciverName"}`,
                     LineTime: "@ViewBag.Messanges[i].LineTime",
                 }
