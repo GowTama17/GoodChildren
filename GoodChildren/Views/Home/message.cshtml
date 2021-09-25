@@ -43,6 +43,9 @@
                     }
                 }
             </div>
+            @{ 
+                string[] test = Model.ReciverName.Split(' ');
+            }
             <div class="chat__sendingBlock ">
                 <textarea name="" cols="30" rows="10" placeholder="Введите сообщение" class="chat__sendingBlock-message"></textarea>
                 <br>
