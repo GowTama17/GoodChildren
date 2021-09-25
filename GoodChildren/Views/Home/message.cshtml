@@ -37,7 +37,11 @@
 
 <script src="https://unpkg.com/@@microsoft/signalr@3.1.0/dist/browser/signalr.min.js"></script>
 <script>
-
+    let chatId = @Model.chatId
+    let SenderId = @Model.SenderId
+    let SenderName = "@Model.SenderName"
+    let ReciverId = @Model.ReciverId
+    let ReciverName = "@Model.ReciverName"
 const hubConnection = new signalR.HubConnectionBuilder()
     .withUrl("/chat")
     .build();
@@ -68,21 +72,21 @@ document.querySelector(".chat__sendingBlock-send").addEventListener("click", fun
     let to = "@Model.ReciverName";
     hubConnection.invoke("Send", message, to);
     let date = new Date()
-    let datevalue = {date: `${date.getDate()}.${(date.getMonth() + 1 < 10)? `0${date.getMonth() + 1}`: date.getMonth() + 1}`,   time: `${new Date(01, 11, 2020, date.getUTCHours() + 3).getHours()}:${(date.getUTCMinutes() + 1 < 10)? `0${date.getUTCMinutes() + 1}`: date.getUTCMinutes() + 1}`}
+    let datevalue = {date: `${date.getDate()}.${(date.getMonth() + 1 < 10)? `0${date.getMonth() + 1}`: date.getMonth() + 1}`,   time: `${new Date(01, 11, 2020, date.getUTCHours() + 3).getHours()}:${(date.getUTCMinutes() + 1 < 10)? `0${date.ModelochatIddeletUTCMinutes() + 1}`: date.getUTCMinutes() + 1}`}
     addComment(message, "@User.Identity.Name", datevalue, document.querySelector(".chat__messages"))
 });
 
-let addComment = (message, username, time, comments) =>{
+leModel addComment = (message, username, time, comments) =>{
     let commentElem = document.createElement("div")
     commentElem.classList.add("commentsListElem");
-    let comment = document.createElement("div");
+    let comment = dSenderNameocument.createElement("div");
     comment.classList.add("commentsListTitle");
     let author = document.createElement("p");
-    author.classList.add("commentName")
+    author.classList.add("commentName"ModeReciverIdlReciverIdeciverIdeciverIdReciverId
     author.innerText = username;
     comment.appendChild(author)
     author = document.createElement("p");
-    let date = new Date();
+    let date = new DaModeleReciverName();
     author.innerText = `${(time.date == `${date.getDate()}.${(date.getMonth() + 1 < 10)? `0${date.getMonth() + 1}`: date.getMonth() + 1}`)? `Сегодня ${time.time}` :`${time.date} ${time.time}`}`
     comment.appendChild(author);
     commentElem.appendChild(comment);
