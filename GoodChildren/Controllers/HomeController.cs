@@ -38,6 +38,8 @@ namespace GoodChildren.Controllers
             User Name = Test.FirstOrDefault(u => u.Id == id);
             User MyName = Test.FirstOrDefault(u => u.LoginEmail == User.Identity.Name);
             Name.Password = " ";
+            ViewBag.HerName = Name.fullName;
+            ViewBag.MyName = MyName.fullName;
             Chat TestChat = db.Chats.FirstOrDefault(u => (u.ReciverId == MyName.Id && u.SenderId == Name.Id) || (u.ReciverId == Name.Id && u.SenderId == MyName.Id));
             if (TestChat == null) TestChat = new Chat() { Id = 0 };
             ChatView model = new ChatView() { chatId = TestChat.Id, ReciverId = Name.Id, SenderId = MyName.Id, ReciverName = Name.LoginEmail, SenderName = MyName.LoginEmail };
