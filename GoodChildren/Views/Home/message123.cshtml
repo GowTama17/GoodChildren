@@ -1,19 +1,25 @@
-﻿<!DOCTYPE html>
+﻿@model GoodChildren.Models.ChatView
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/chat.css">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="chat__container ">
         <div class="chat__block d-flex justify-between">
             <div class="chat__header d-flex alighn-center">
                 <div class="chat__header-userBlock d-flex justufy-between alighn-center">
-                    <div class="chat__header-userIcon d-flex alighn-center">СY</div>
-                    <div class="chat__header-userNmae">Cagariev Yusup</div>
+                    <div class="chat__header-userIcon d-flex alighn-center">СЮ</div>
+                    <div class="chat__header-userNmae">@Model.ReciverName</div>
                 </div>
             </div>
             <div>
@@ -42,9 +48,11 @@
             </div>
         </div>
     </div>
+    <script src="https://unpkg.com/@@microsoft/signalr@3.1.0/dist/browser/signalr.min.js"></script>
+    
 </body>
 </html>
-<script src="https://unpkg.com/@@microsoft/signalr@3.1.0/dist/browser/signalr.min.js"></script>
+
 <script charset="utf-8" type="text/javascript">
 let chatId = @Model.chatId;
 let SenderId = @Model.SenderId;
