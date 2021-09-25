@@ -1,23 +1,7 @@
 ﻿function postServ(send, url) {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', url)
-        xhr.responseType = 'json';
-        xhr.setRequestHeader('Content-Type', 'application/json')
-        xhr.onload = () => {
-            if (xhr.status >= 400) {
-                reject(xhr.response)
-            }
-            else {
-                resolve(xhr.response)
-            }
-        }
-        xhr.onerror = () => {
-            // console.log()
-            reject(xhr.response)
-        }
-        // console.log(send)
-        xhr.send(send);
+    fetch(url, {
+        method: "POST",
+        body: data
     })
 }
 
@@ -49,10 +33,7 @@ autorizeBtn.addEventListener("click", () => {
         const data = new FormData();
         data.append("Email", login.value);
         data.append("Password", password.value);
-        fetch("/Account/Login", {
-            method: "POST",
-            body: data
-        })
+        postServ(data, "/Account/Login")
         console.log(data)
     }
     else error.innerText = "Необходимо заполнить все поля*"
@@ -195,8 +176,15 @@ volunteer2Continue.addEventListener("click", () => {
                 cityChillHouse: `${city.value}`,
                 PhoneNum: phone.value
             }
-            console.log(data)
-            postServ(data, "/Account//Register")
+            const data = new FormData();
+            data.append("Email", login.value);
+            data.append("Password", password.value);
+            data.append("Role", "Волонтёр");
+            data.append("fullName", name.value);
+            data.append("BirthDate", date.value);
+            data.append("cityChillHouse", city.value);
+            data.append("PhoneNum", phone.value);
+            postServ(data, "/Account/Register")
         }
         else error.innerText = "Пороли не совпадают*"
     }
@@ -215,16 +203,14 @@ children2Continue.addEventListener("click", () => {
     let error = document.querySelector(".regist-child2 .error");
     if (login.value != "" && password.value != "" && passwordTwo.value != "" && phone.value != "") {
         if (password.value == passwordTwo.value) {
-            let data = {
-                Email: login.value,
-                Password: password.value,
-                Role: "Ребенок",
-                fullName: name.value,
-                BirthDate: date.value,
-                cityChillHouse: `${city.value},${houseName.value}`,
-                PhoneNum: phone.value
-            }
-            
+            const data = new FormData();
+            data.append("Email", login.value);
+            data.append("Password", password.value);
+            data.append("Role", "Ребенок");
+            data.append("fullName", name.value);
+            data.append("BirthDate", date.value);
+            data.append("cityChillHouse", `${city.value},${houseName.value}`);
+            data.append("PhoneNum", phone.value);
             postServ(data, "/Account/Register")
         }
         else error.innerText = "Пороли не совпадают*"
