@@ -39,6 +39,12 @@ namespace GoodChildren.Controllers
             Chat TestChat = db.Chats.FirstOrDefault(u => (u.ReciverId == MyName.Id && u.SenderId == Name.Id) || (u.ReciverId == Name.Id && u.SenderId == MyName.Id));
             if (TestChat == null) TestChat = new Chat() { Id = 0 };
             ChatView model = new ChatView() { chatId = TestChat.Id, ReciverId = Name.Id, SenderId = MyName.Id, ReciverName = Name.LoginEmail, SenderName = MyName.LoginEmail };
+            if (model.chatId != 0)
+            {
+                List<Chat> result = new List<Chat>();
+                result = db.Chats.Where(u => (u.ReciverId == model.ReciverId && u.SenderId == model.SenderId) || (u.ReciverId == model.SenderId && u.SenderId == model.ReciverId)).ToList();
+                ViewBag.Messanges = result;
+            }
             return View(model);
         }
         [HttpPost]
