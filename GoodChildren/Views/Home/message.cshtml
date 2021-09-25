@@ -58,22 +58,11 @@ let SenderName = "@Model.SenderName";
 let ReciverId = @Model.ReciverId;
 let ReciverName = "@Model.ReciverName";
 
-function GetServ(url, data) {
-    var xhr = new XMLHttpRequest()
-    xhr.open('GET', url, false);
-    xhr.send(data);
-    console.log(data)
-    xhr.onreadystatechange = function () {
-        return xhr.responseText;
-    }
-    return JSON.parse(xhr.onreadystatechange());
-}
 
 const hubConnection = new signalR.HubConnectionBuilder()
     .withUrl("/chat")
     .build();
-// let chatContainer = document.createElement("div");
-// commentContainer.classList.add("chatContainer");
+
     async function postServ(data, url) {
         fetch(url, {
             method: "POST",
@@ -90,23 +79,25 @@ const hubConnection = new signalR.HubConnectionBuilder()
 
 });
 
-document.querySelector(".chat__sendingBlock-send").addEventListener("click", function (e) {
+    document.querySelector(".chat__sendingBlock-send").addEventListener("click", function (e) {
     let message = document.querySelector(".chat__sendingBlock-message").value;
     let to = ReciverName;
     let date = new Date()
     let datevalue = {date: `${date.getDate()}.${(date.getMonth() + 1 < 10)? `0${date.getMonth() + 1}`: date.getMonth() + 1}`,   time: `${new Date(01, 11, 2020, date.getUTCHours() + 3).getHours()}:${(date.getUTCMinutes() + 1 < 10)? `0${date.getUTCMinutes() + 1}`: date.getUTCMinutes() + 1}`}
     addComment(message, SenderName, datevalue, document.querySelector(".chat__messages"))
     date.setHours(date.getUTCHours() + 3)
-    console.log(date)
+    
     const data = new FormData();
     data.append("ChatId", chatId);
     data.append("SenderId", SenderId);
     data.append("ReciverId", ReciverId);
     data.append("ChatLine", message);
-    data.append("LineTime", date);
+    data.append("LineTime", `${date.getDate}.${date.getMonth + 1}.${date.getFullYear} ${date.getHours}:${date.getMinutes}:${date.getSeconds}`);
     data.append("lookIt", "true");
     postServ(data, "/Home/message")
-    hubConnection.invoke("Send", data, to);
+        hubConnection.invoke("Send", data, to);
+
+        console.log(`${date.getDate}.${date.getMonth + 1}.${date.getFullYear} ${date.getHours}:${date.getMinutes}:${date.getSeconds}`)
 });
 
     let addComment = (message, username, time, comments) =>{
@@ -127,17 +118,7 @@ document.querySelector(".chat__sendingBlock-send").addEventListener("click", fun
     comment.classList.add("commentsText");
     commentElem.appendChild(comment);
     comments.appendChild(commentElem);
-    }
-    let resa = {
-        chatId: @Model.chatId,
-        SenderId: @Model.SenderId,
-        ReciverId: @Model.ReciverId,
-        SenderName: "@Model.SenderName",
-        ReciverName: "@Model.ReciverName"
-    }
-    let messages = GetServ("/Home/DownloadMessage", resa)
-
-    console.log(messages)
+    
 
     console.log(" @ViewBag.Messanges[3].ChatLine ")
 
