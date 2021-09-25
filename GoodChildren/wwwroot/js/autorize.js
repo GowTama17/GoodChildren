@@ -1,11 +1,24 @@
-async function postServ(data, url) {
-    fetch(url, {
-        method: 'POST', // или 'PUT'
-        body: JSON.stringify(data), // данные могут быть 'строкой' или {объектом}!
-        headers: {
-            'Content-Type': 'application/json'
+п»їfunction postServ(send, url) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url)
+        xhr.responseType = 'json';
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onload = () => {
+            if (xhr.status >= 400) {
+                reject(xhr.response)
+            }
+            else {
+                resolve(xhr.response)
+            }
         }
-    });
+        xhr.onerror = () => {
+            // console.log()
+            reject(xhr.response)
+        }
+        // console.log(send)
+        xhr.send(send);
+    })
 }
 
 let autorization = document.querySelector(".autorization");
@@ -33,13 +46,16 @@ autorizeBtn.addEventListener("click", () => {
     let login = document.querySelector(".autoriz #login");
     let error = document.querySelector(".autoriz .error");
     if (password.value != "" && login.value != "") {
-        let data = {
-            Email: login.value,
-            Password: password.value
-        }
-        postServ(data, "Login")
+        const data = new FormData();
+        data.append("Email", login.value);
+        data.append("Password", password.value);
+        fetch("/Account/Login", {
+            method: "POST",
+            body: data
+        })
+        console.log(data)
     }
-    else error.innerText = "*Необходимо заполнить все поля!"
+    else error.innerText = "РќРµРѕР±С…РѕРґРёРјРѕ Р·Р°РїРѕР»РЅРёС‚СЊ РІСЃРµ РїРѕР»СЏ*"
 })
 registrationBtn.addEventListener("click", () => {
     volunteerBlock.style.display = "flex";
@@ -138,7 +154,7 @@ volunteerContinue.addEventListener("click", () => {
             volunteer1.style.display = "none";
         }, 300)
     }
-    else error.innerText = "Необходимо заполнить все поля*"
+    else error.innerText = "РќРµРѕР±С…РѕРґРёРјРѕ Р·Р°РїРѕР»РЅРёС‚СЊ РІСЃРµ РїРѕР»СЏ*"
 })
 
 childrenContinue.addEventListener("click", () => {
@@ -156,7 +172,7 @@ childrenContinue.addEventListener("click", () => {
             children1.style.display = "none";
         }, 300)
     }
-    else error.innerText = "Необходимо заполнить все поля*"
+    else error.innerText = "РќРµРѕР±С…РѕРґРёРјРѕ Р·Р°РїРѕР»РЅРёС‚СЊ РІСЃРµ РїРѕР»СЏ*"
 })
 
 volunteer2Continue.addEventListener("click", () => {
@@ -173,17 +189,18 @@ volunteer2Continue.addEventListener("click", () => {
             let data = {
                 Email: login.value,
                 Password: password.value,
-                Role: "Волонтер",
+                Role: "Р’РѕР»РѕРЅС‚С‘СЂ",
                 fullName: name.value,
                 BirthDate: date.value,
                 cityChillHouse: `${city.value}`,
                 PhoneNum: phone.value
             }
-            postServ(data, "Register")
+            console.log(data)
+            postServ(data, "/Account//Register")
         }
-        else error.innerText = "Пароли не совпадают*"
+        else error.innerText = "РџРѕСЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚*"
     }
-    else error.innerText = "Необходимо заполнить все поля*"
+    else error.innerText = "РќРµРѕР±С…РѕРґРёРјРѕ Р·Р°РїРѕР»РЅРёС‚СЊ РІСЃРµ РїРѕР»СЏ*"
 })
 
 children2Continue.addEventListener("click", () => {
@@ -201,15 +218,16 @@ children2Continue.addEventListener("click", () => {
             let data = {
                 Email: login.value,
                 Password: password.value,
-                Role: "Ребенок",
+                Role: "Р РµР±РµРЅРѕРє",
                 fullName: name.value,
                 BirthDate: date.value,
                 cityChillHouse: `${city.value},${houseName.value}`,
                 PhoneNum: phone.value
             }
-            postServ(data, "Register")
+            
+            postServ(data, "/Account/Register")
         }
-        else error.innerText = "Пароли не совпадают*"
+        else error.innerText = "РџРѕСЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚*"
     }
-    else error.innerText = "Необходимо заполнить все поля*"
+    else error.innerText = "РќРµРѕР±С…РѕРґРёРјРѕ Р·Р°РїРѕР»РЅРёС‚СЊ РІСЃРµ РїРѕР»СЏ*"
 })
