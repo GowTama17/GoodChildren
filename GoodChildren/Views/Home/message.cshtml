@@ -79,8 +79,8 @@ const hubConnection = new signalR.HubConnectionBuilder()
 
 });
 
-    document.querySelector(".chat__sendingBlock-send").addEventListener("click", function (e) {
-    let message = document.querySelector(".chat__sendingBlock-message").value;
+    document.querySelector(".chat__sendMessage").addEventListener("click", function (e) {
+        let message = document.querySelector(".chat__message-value").value;
         let to = ReciverName;
         let messa = {
             Id:0,
