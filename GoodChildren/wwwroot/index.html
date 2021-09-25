@@ -4,114 +4,67 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="#">
 </head>
 <body>
-    <div class="bg">
-        <div class="main">
-            <div class="autorization">
-                <div class="form">
-                    <h1 class="form__title">Авторизация</h1>
-                    <form action="" class="form-group">
-                        <label for="login" class="form-group__label">Введите свой логин</label>
-                        <input type="text" name="login" id="login" class="form-group__input" placeholder="Телефон или логин">
-                        <label for="password" class="form-group__label">Введите свой пароль</label>
-                        <input type="password" name="password" id="password" class="form-group__input" placeholder="Пароль">
-                        <a href="#" class="form-group__link">Забыли пароль?</a>
-                        <input type="submit" value="Войти" class='submit'>
-                        <input type="button" value="Регистрация" class='submit registration'>
-                    </form>
-                    <p class="form__text">
-                        Нажимая продолжить вы соглашаетесь с <br> <a href="#">Политикой конфиденциальности</a>
-                    </p>
-                </div>
+    <div class="container">
+        <div class="header">
+            <img  src="./img/logo.png" class="header__logo"/>
+            <div class="header__nav d-flex justify-between">
+                <a href="#" class="header__nav-item active">Главная</a>
+                <a href="#" class="header__nav-item">Мероприятия</a>
+                <a href="#" class="header__nav-item">Пожелания</a>
+                <a href="#" class="header__nav-item">Наставничество</a>
+                <a href="#" class="header__nav-item">Блог</a>
             </div>
-            
-    
-            <div class="registration-volunteer">
-                <div class="form form__regist-vol1">
-                    <h1 class="form__title">Регистрация</h1>
-                    <div class="form__circle back-vol1"> <img src='./img/svg/arrow.svg'> </div>
-                    <div class="form__buttons">
-                        <div class="form__buttons-item form__buttons-volunteer active">Волонтер</div>
-                        <div class="form__buttons-item form__buttons-children">Ребенок</div>
-                    </div>
-                    <form action="" class="form-group">
-                        <label for="name" class="form-group__label form-group__label_margin">Введите свое ФИО</label>
-                        <input type="text" name="name" id="name" class="form-group__input" placeholder="Фамилия, Имя, Отчество">
-                        <label for="date" class="form-group__label">Введите Дату рождения</label>
-                        <input type="date" name="date" id="date" class="form-group__input" value="1939-09-01">
-                        <label for="city" class="form-group__label">Введите свой город</label>
-                        <input type="text" name="city" id="city" class="form-group__input" placeholder="Москва">
-                        <label for='email' class="form-group__label">Введите свой e-mail</label>
-                        <input type="email" name="email" id="email" placeholder="E-mail" class='form-group__input'>
-                        <input type="button" value="Продолжить" class="submit submit_margin volunteer-continue">
-                    </form>
-                    <p class="form__text">
-                        Нажимая продолжить вы соглашаетесь с <br> <a href="#">Политикой конфиденциальности</a>
-                    </p>
-                </div>
-                <div class="form form__regist-vol2">
-                    <h1 class="form__title">Логин и пароль</h1>
-                    <div class="form__circle back-vol2"> <img src='./img/svg/arrow.svg'> </div>
-                    <form action="" class="form-group">
-                        <label for="login" class="form-group__label form-group__label_margin">Придумайте логин</label>
-                        <input type="text" name="login" id="login" class="form-group__input" placeholder="andreyseredin">
-                        <label for="new_password" class="form-group__label">Придумайте пароль</label>
-                        <input type="password" name="new_password" id="new_password" class="form-group__input" placeholder="Пароль">
-                        <label for="city" class="form-group__label">Подтвердите пароль</label>
-                        <input type="password" name="city" id="city" class="form-group__input" placeholder="Пароль">
-                        <input type="submit" value="Войти" class="submit submit_margin">
-                    </form>
-                    <p class="form__text">
-                        Нажимая продолжить вы соглашаетесь с <br> <a href="#">Политикой конфиденциальности</a>
-                    </p>
-                </div>
+            <div class="header__user d-flex">
+                <div class="header__user-name">Иван И.</div>
+                <img src="./img/user-img.png" class="header__user-img"/>
             </div>
-            <div class="registration-children">
-                <div class="form form__regist-child">
-                    <h1 class="form__title">Регистрация</h1>
-                    <div  class="form__circle back-child1"> <img src='./img/svg/arrow.svg'> </div>
-                    <div class="form__buttons">
-                        <div class="form__buttons-item form__buttons-volunteer">Волонтер</div>
-                        <div class="form__buttons-item form__buttons-children active">Ребенок</div>
-                    </div>
-                    <form action="" class="form-group">
-                        <label for="name" class="form-group__label form-group__label_margin">Введите свое ФИ</label>
-                        <input type="text" name="name" id="name" class="form-group__input" placeholder="Фамилия, Имя">
-                        <label for="date" class="form-group__label">Введите Дату рождения</label>
-                        <input type="date" name="date" id="date" class="form-group__input" value="1939-09-01">
-                        <label for="new_login" class="form-group__label">Придумайте логин</label>
-                        <input type="text" name="new_login" id="citynew_login" class="form-group__input" placeholder="sashaone">
-                        <label for='new_password' class="form-group__label">Придумайте пароль</label>
-                        <input type="password" name="new_password" id="new_password" placeholder="Пароль" class='form-group__input'>
-                        <input type="button" value="Продолжить" class="submit submit_margin children-continue">
-                    </form>
-                    <p class="form__text">
-                        Нажимая продолжить вы соглашаетесь с <br> <a href="#">Политикой конфиденциальности</a>
-                    </p>
+        </div>
+        <div class="content">
+            <h1 class="content__title">Профессия дня</h1>
+            <div class="d-flex justify-between">
+                <div class="content__left">
+                    <img src="./img/home-preview.jpg" class="content__left-preview"/>
                 </div>
-                <div class="form form__regist-orp">
-                    <h1 class="form__title">Детский дом</h1>
-                    <div  class="form__circle back-child2"> <img src='./img/svg/arrow.svg'> </div>
-                    <form action="" class="form-group">
-                        <label for="name" class="form-group__label form-group__label_margin">Полное официальное наименование детского дома</label>
-                        <input type="text" name="name" id="name" class="form-group__input" placeholder="Название">
-                        <label for="telephone" class="form-group__label">Телефонный номер детского дома </label>
-                        <input type="tel" name="telephone" id="telephone"  class="form-group__input" patern="[0-9]{3} [0-9]{3} [0-9]{4}" placeholder="+7(___)___-__-__">
-                        <label for="city" class="form-group__label">Придумайте пароль</label>
-                        <input type="password" name="city" id="city" class="form-group__input" placeholder="Пароль">
-                        <input type="submit" value="Войти" class="submit submit_margin">
-                    </form>
-                    <p class="form__text">
-                        Нажимая продолжить вы соглашаетесь с <br> <a href="#">Политикой конфиденциальности</a>
-                    </p>
+                <div class="content__right">
+                    <div class="content__right-top">
+                        <div class="content__right-title">Web-разработчик</div>
+                        <div class="content__right-paragraf">
+                            Это особый специалист в IT-области, занимающийся созданием сайтов, 
+                            различных сервисов. Это разработчик веб и мультимедийных приложений. 
+                            Он прописывает исходный код продукта, воплощает в жизнь макет, созданный дизайнером.
+                            Именно таким будет стандартное описание профессии, но тут есть деление на три направления:
+                            Frontend - занимается разработкой видимой части сайта;
+                            Backend - занимается разработкой частью которая отвечает за логику сайта;
+                            Fullstack - владеет двумя выше перечисленными направлениями.
+                        </div>
+                    </div>
+                    <div class="content__right-bott d-flex">
+                        <button class="content__right-button"><span>Смотреть</span> <img src="./img/vuesax-linear-play.png" class="vuesax-linear-play" alt=""></button>
+                        <button class="content__right-favorites"></button>
+                    </div>                    
                 </div>
             </div>
         </div>
+        <div class="content__videoBlock">
+            <!-- <div  class="content__videoplayer">
+                <embed src="http://www.youtube.com/v/CsqbPIXX_oY?version=3&amp;hl=en_US&amp;rel=0&amp;autohide=1&amp;autoplay=1" wmode="transparent" type="application/x-shockwave-flash" width="100%" height="100%" allowfullscreen="true" title="Adobe Flash Player">
+            </div> -->
+            <object class="content__videoplayer">
+                <param name="movie" value="http://www.youtube.com/v//CsqbPIXX_oY?version=3&amp;hl=en_US" />
+                <param name="allowFullScreen" value="true" />
+                <param value="transparent" name="wmode" />
+                <!-- <param name="allowscriptaccess" value="always" /> -->
+                <embed src="http://www.youtube.com/v//CsqbPIXX_oY?version=3&amp;hl=en_US" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" class="cssVideo"></embed>
+            </object>
+            <!-- <iframe src="//www.youtube.com/embed/CsqbPIXX_oY?rel=0&amp;wmode=opaque" frameborder="0" allowfullscreen="allowfullscreen" class="content__videoplayer"></iframe> -->
+            <!-- <iframe src="https://www.youtube.com/embed/CsqbPIXX_oY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="content__videoplayer"></iframe> -->
+        </div>
     </div>
-    <script src="./js/autorize.js"></script>
-    <script src="js/script.min.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
