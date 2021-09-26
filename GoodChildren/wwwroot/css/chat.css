@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
 body{
     margin: 0;
-    background-color: #cecdcd69;
+    background: url(/img/bg-chat.png);
     font-family: 'Montserrat';
+    background-size: cover;
 }
 *{
     box-sizing: border-box;
@@ -15,6 +16,9 @@ body{
 }
 .alighn-center{
     align-items: center;
+}
+.alighn-end {
+    align-items: flex-end;
 }
 .chat__container{
     width: 100%;
@@ -59,12 +63,19 @@ body{
 .chat__messages{
     width: 100%;
     padding: 5px 30px;
+    overflow-y: auto;
+    max-height: 662px
 }
-.chat__message{
-    align-items: flex-end;
-    margin-bottom: 14px;
-    display: flex;
-}
+    .chat__messages::-webkit-scrollbar{
+        width: 5px;
+        border-radius: 3px;
+        background-color: #2B5278;
+    }
+    .chat__message {
+        align-items: flex-end;
+        margin-bottom: 14px;
+        display: flex;
+    }
 
 .chat__message-userIcon{
     width: 48px;
@@ -84,10 +95,27 @@ body{
     max-width: calc(100% - 70px);
 }
 
+    .chat__message-block.coins {
+        background: #F8BA4C;
+    }
+
 .chat__message-val{
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;   
+}
+.chat__message-val.coins {
+    color: #fff;
+}
+
+.span-coins{
+    font-size: 20px;
+}
+
+.img-coins {
+    margin-left: 14px;
+    margin-top: 10px;
+    margin-right: 10px;
 }
 
 .chat__message-time{
@@ -101,16 +129,28 @@ body{
     color: #7DA8D3;
 }
 
-.chat__sendBLock{
-    align-items: flex-end;
-    background: #17212B;
-    padding: 10px 14px;
-    position: relative;
-}
-.chat__sendfile{
+    .chat__message-time.coins{
+        color: #fff;
+    }
+
+    .chat__sendBLock {
+        align-items: flex-end;
+        background: #17212B;
+        padding: 10px 14px;
+        position: relative;
+    }
+.chat__sendfile {
     cursor: pointer;
+    transition: .3s all;
+    border: 3px solid #1E316300;
+    padding: 5px;
+    border-radius: 8px;
 }
-.chat__message-value{
+    .chat__sendfile.active {
+        cursor: pointer;
+        border-color: #1E3163;
+    }
+.chat__message-value {
     background: none;
     border: none;
     width: 100%;
@@ -119,7 +159,8 @@ body{
     outline: none;
     color: #fff;
     font-size: 16px;
-    line-height: 24px;    
+    line-height: 24px;
+    transition: .3s all;
 }
 
 .chat__message-value::-webkit-scrollbar {
