@@ -17,6 +17,7 @@
         string[] HerElement = ViewBag.HerName.Split(' ');
         string[] MyElement = ViewBag.MyName.Split(' ');
         string ActiveElement = "";
+        string ActiveFullElement = "";
     }
     <div class="chat__container ">
         <div class="chat__block d-flex justify-between">
@@ -35,27 +36,53 @@
                             if (ViewBag.Messanges[i].SenderId == Model.SenderId)
                             {
                                 ActiveElement = MyElement[0][0].ToString() + MyElement[1][0].ToString();
+                                ActiveFullElement = MyElement[1].ToString();
                             }
-                            else ActiveElement = HerElement[0][0].ToString() + HerElement[1][0].ToString();
+                            else
+                            {
+                                ActiveElement = HerElement[0][0].ToString() + HerElement[1][0].ToString();
+                                ActiveFullElement = HerElement[1].ToString();
+                            }
                             DateTime Time = @ViewBag.Messanges[i].LineTime;
-                            <div class="chat__message d-flex">
-                                <div class="chat__message-userIcon d-flex justufy-between alighn-center ">@ActiveElement</div>
-                                <div class="chat__message-block d-flex justify-between alighn-center">
-                                    <div class="chat__message-val">
-                                        @ViewBag.Messanges[i].ChatLine
-                                        <div class="chat__message-time">@Time.ToString("dd.MM hh:mm")</div>
+                            if (ViewBag.Messanges[i].Coins)
+                            {
+                                <div class="chat__message d-flex">
+                                    <div class="chat__message-userIcon d-flex justufy-between alighn-center ">@ActiveElement</div>
+                                    <div class="chat__message-block coins d-flex justify-between alighn-center">
+                                        <div class="chat__message-val">
+                                            @ActiveFullElement поделился @ViewBag.Messanges[i].ChatLine монетами!<br>
+                                            <div class="d-flex alighn-end">
+                                                <img src="/img/vuesax-linear-paperclip-2.png" alt="" class="img-coins"> <div class="span-coins">- @ViewBag.Messanges[i].ChatLine монет</div>
+                                            </div>
+                                            <div class="chat__message-time coins">@Time.ToString("dd.MM hh:mm")</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
+                            else
+                            {
+                                <div class="chat__message d-flex">
+                                    <div class="chat__message-userIcon d-flex justufy-between alighn-center ">@ActiveElement</div>
+                                    <div class="chat__message-block d-flex justify-between alighn-center">
+                                        <div class="chat__message-val">
+                                            @ViewBag.Messanges[i].ChatLine
+                                            <div class="chat__message-time">@Time.ToString("dd.MM hh:mm")</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            }
+
                         }
-                    }
+                     }
                 </div>
-                <div class="chat__sendBLock d-flex justify-between">
-                    <div class="chat__sendfile"><img src="/img/vuesax-linear-paperclip-2.png" alt=""></div>
-                    <textarea rows="1" placeholder="Напишите сообщение..." class="chat__message-value"></textarea>
-                    <button class="chat__sendMessage"><img src="/img/vuesax-linear-send.png" alt=""></button>
-                </div>
-            </div>
+                                <div class="chat__sendBLock d-flex justify-between">
+                                    <div class="chat__sendfile"><img src="/img/vuesax-linear-paperclip-2.png" alt=""></div>
+                                    <textarea rows="1" placeholder="Напишите сообщение..." class="chat__message-value"></textarea>
+                                    <button class="chat__sendMessage"><img src="/img/vuesax-linear-send.png" alt=""></button>
+                                </div>
+                            </div>
         </div>
     </div>
     <script src="https://unpkg.com/@@microsoft/signalr@3.1.0/dist/browser/signalr.min.js"></script>
@@ -92,7 +119,7 @@ const hubConnection = new signalR.HubConnectionBuilder()
         console.log(userName, ReciverName )
         if (userName == ReciverName) {
             let coins = document.querySelector(".chat__sendfile");
-            addComment(messa, "@HerElement[0][0]@HerElement[1][0]", LineTime, document.querySelector(".chat__messages"), coins.classList.contains("active"), "@MyElement[1]")
+            addComment(false ,messa, "@HerElement[0][0]@HerElement[1][0]", LineTime, document.querySelector(".chat__messages"), coins.classList.contains("active"), "@MyElement[1]")
             let LookMeseng = new FormData;
             LookMeseng.append("UserId", SenderId);
             LookMeseng.append("ChatId", chatId);
@@ -118,30 +145,34 @@ const hubConnection = new signalR.HubConnectionBuilder()
             date.setHours(date.getUTCHours() + 3)
             let time = `${(date.getDate() < 10) ? `0${date.getDate()}` : date.getDate()}.${(date.getMonth() < 9) ? `0${date.getMonth() + 1}` : date.getMonth() + 1} ${(date.getHours() < 10) ? `0${date.getHours()}` : date.getHours()}:${date.getMinutes()}`
             let coins = document.querySelector(".chat__sendfile");
-            addComment(message, "@MyElement[0][0]@MyElement[1][0]", time, document.querySelector(".chat__messages"), coins.classList.contains("active"), "@MyElement[1]")
+            addComment(true, message, "@MyElement[0][0]@MyElement[1][0]", time, document.querySelector(".chat__messages"), coins.classList.contains("active"), "@MyElement[1]")
 
             const data = new FormData();
+            data.append("Coins", coins.classList.contains("active"));
             data.append("ChatId", chatId);
             data.append("SenderId", SenderId);
             data.append("ReciverId", ReciverId);
             data.append("ChatLine", message);
             data.append("LineTime", `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
-            (!coins.classList.contains("active")) ? postServ(data, "/Home/message") : null;
+            postServ(data, "/Home/message")
             hubConnection.invoke("Send", messa.ChatLine, messa.ChatId, messa.ReciverId, time, to);
             document.querySelector(".chat__message-value").value = ""
         }
 });
 
-        let addComment = (message, username, time, comments, coins, name = " ") => {
+        let addComment = (update, message, username, time, comments, coins, name = " ") => {
 
         let commentElem = document.createElement("div")
             commentElem.classList.add("chat__message");
             if (coins) {
-                const CoinesesModel = new FormData();
-                CoinesesModel.append("SenderId", @Model.SenderId);
-                CoinesesModel.append("RevicerId",@Model.ReciverId);
-                CoinesesModel.append("Coinses", message);
-                postServ(CoinesesModel, "/Home/Coins")
+                if (update) {
+                    const CoinesesModel = new FormData();
+                    CoinesesModel.append("SenderId", @Model.SenderId);
+                    CoinesesModel.append("RevicerId",@Model.ReciverId);
+                    CoinesesModel.append("Coinses", message);
+                    postServ(CoinesesModel, "/Home/Coins")
+                }
+
                 commentElem.innerHTML = `
                     <div class="chat__message-userIcon d-flex justufy-between alighn-center ">${username}</div>
                     <div class="chat__message-block coins d-flex justify-between alighn-center">
