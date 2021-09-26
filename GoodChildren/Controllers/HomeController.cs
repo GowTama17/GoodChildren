@@ -34,8 +34,17 @@ namespace GoodChildren.Controllers
         }
         public IActionResult Events()
         {
-            return View();
+            List<Sobytiya> model = db.Events.ToList();
+            User Im = db.Users.FirstOrDefault(u => u.LoginEmail == User.Identity.Name);
+            ViewBag.Coins = Im.Coins;
+            return View(model);
         }
+        [HttpPost]
+        public async void AddEvents(Sobytiya model)
+        {
+            db.Events.Add(model);
+            await db.SaveChangesAsync();
+        } 
         public IActionResult message(int? id)
         {
             List<User> Test = db.Users.ToList();

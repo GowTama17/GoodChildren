@@ -12,6 +12,7 @@ namespace GoodChildren.Models
         public string Name { get; set; }
         public string Photo { get; set; }
         public string Adress { get; set; }
+        public string Opisanie { get; set; }
         public string Contact { get; set; }
         public int Mesta { get; set; }
         public int Zanyata { get; set; }
@@ -19,5 +20,7 @@ namespace GoodChildren.Models
         public int Vozrast { get; set; }
         public string Spons { get; set; }
         public string Volonts { get; set; }
+        public int Vladelec { get; set; }
+        public bool State { get; set; }
     }
 }
