@@ -14,6 +14,7 @@ namespace GoodChildren.Models
             public int ReciverId { get; set; }
             public string ChatLine { get; set; }
             public DateTime LineTime { get; set; }
+            public bool Coins { get; set; }
     }
     public class ChatView
     {

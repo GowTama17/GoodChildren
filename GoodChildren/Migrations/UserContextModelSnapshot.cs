@@ -32,6 +32,9 @@ namespace GoodChildren.Migrations
                     b.Property<string>("ChatLine")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Coins")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LineTime")
                         .HasColumnType("datetime2");
 
@@ -154,6 +157,9 @@ namespace GoodChildren.Migrations
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Coins")
+                        .HasColumnType("int");
 
                     b.Property<string>("LoginEmail")
                         .HasColumnType("nvarchar(max)");

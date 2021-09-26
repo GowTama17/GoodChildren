@@ -88,6 +88,17 @@ namespace GoodChildren.Controllers
             test.State = model.State;
             await db.SaveChangesAsync();
         }
+        [HttpPost]
+        public async void Coins(CoinsesModel model)
+        {
+            User test1 = db.Users.FirstOrDefault(u => u.Id == model.SenderId);
+            User test = db.Users.FirstOrDefault(u => u.Id == model.RevicerId);
+            test.Coins += model.Coinses;
+            test1.Coins -= model.Coinses;
+            db.Users.Update(test1);
+            db.Users.Update(test);
+            db.SaveChanges();
+        }
         public IActionResult Privacy()
         {
             return View();

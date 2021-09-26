@@ -58,7 +58,7 @@ namespace GoodChildren.Controllers
                 {
                     // добавляем пользователя в бд
                     db.Users.Add(new User { LoginEmail = model.Email, Password = model.Password, BirthDate = model.BirthDate, cityChillHouse = model.cityChillHouse, fullName= model.fullName,
-                    PhoneNum= model.PhoneNum, Role=model.Role});
+                    PhoneNum= model.PhoneNum, Role=model.Role, Coins=250});
                     await db.SaveChangesAsync();
 
                     await Authenticate(model.Email); // аутентификация

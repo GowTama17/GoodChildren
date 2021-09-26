@@ -86,7 +86,8 @@ const hubConnection = new signalR.HubConnectionBuilder()
             method: "POST",
             body: data
         })
-    }
+        }
+
     hubConnection.on("Receive", function (messa, chatId, reciverId, LineTime, userName) {
         console.log(userName, ReciverName )
         if (userName == ReciverName) {
@@ -136,6 +137,11 @@ const hubConnection = new signalR.HubConnectionBuilder()
         let commentElem = document.createElement("div")
             commentElem.classList.add("chat__message");
             if (coins) {
+                const CoinesesModel = new FormData();
+                CoinesesModel.append("SenderId", @Model.SenderId);
+                CoinesesModel.append("RevicerId",@Model.ReciverId);
+                CoinesesModel.append("Coinses", message);
+                postServ(CoinesesModel, "/Home/Coins")
                 commentElem.innerHTML = `
                     <div class="chat__message-userIcon d-flex justufy-between alighn-center ">${username}</div>
                     <div class="chat__message-block coins d-flex justify-between alighn-center">

@@ -16,6 +16,7 @@ namespace GoodChildren.Models
         public DateTime BirthDate { get; set; } //Дата рождения
         public string cityChillHouse { get; set; } // Детский дом или город проживания
         public string PhoneNum { get; set; } // Номер телефона
+        public int Coins { get; set; }
     }
     public class Spons
     {

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoodChildren.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210925141445_Initial")]
-    partial class Initial
+    [Migration("20210926022148_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,9 @@ namespace GoodChildren.Migrations
 
                     b.Property<string>("ChatLine")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Coins")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("LineTime")
                         .HasColumnType("datetime2");
@@ -69,6 +72,84 @@ namespace GoodChildren.Migrations
                     b.ToTable("ChatStates");
                 });
 
+            modelBuilder.Entity("GoodChildren.Models.Sobytiya", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Adress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Contact")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Like")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Mesta")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Spons")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Volonts")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Vozrast")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Zanyata")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("GoodChildren.Models.Spons", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LoginEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OSebe")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNum")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("cityChillHouse")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("fullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sponsers");
+                });
+
             modelBuilder.Entity("GoodChildren.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -78,6 +159,9 @@ namespace GoodChildren.Migrations
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Coins")
+                        .HasColumnType("int");
 
                     b.Property<string>("LoginEmail")
                         .HasColumnType("nvarchar(max)");
