@@ -1,11 +1,14 @@
 ﻿using GoodChildren.Models;
 using GoodChildren.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +19,10 @@ namespace GoodChildren.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private UserContext db;
-
-        public HomeController(ILogger<HomeController> logger, UserContext context)
+        private readonly IHostingEnvironment hostingEnvironment;
+        public HomeController(ILogger<HomeController> logger, UserContext context, IHostingEnvironment environment )
         {
+            hostingEnvironment = environment;
             _logger = logger;
             db = context;
         }
@@ -34,7 +38,38 @@ namespace GoodChildren.Controllers
         }
         public IActionResult Events()
         {
-            return View();
+            List<Sobytiya> model = db.Events.ToList();
+            User Im = db.Users.FirstOrDefault(u => u.LoginEmail == User.Identity.Name);
+            ViewBag.Coins = Im.Coins;
+            return View(model);
+        }
+        [HttpPost]
+        public async void AddEvents(SobytiyaFile model)
+        {
+            long size = model.files.Sum(f => f.Length);
+
+            // full path to file in temp location
+            var filePath = Path.GetTempFileName();
+
+            foreach (var formFile in model.files)
+            {
+                var uploads = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                var fullPath = Path.Combine(uploads, GetUniqueFileName(formFile.FileName));
+                formFile.CopyTo(new FileStream(fullPath, FileMode.Create));
+
+            }
+
+
+            //db.Events.Add(model);
+            await db.SaveChangesAsync();
+        }
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Path.GetExtension(fileName);
         }
         public IActionResult message(int? id)
         {

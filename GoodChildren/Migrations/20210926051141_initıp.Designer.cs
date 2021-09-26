@@ -4,14 +4,16 @@ using GoodChildren.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GoodChildren.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20210926051141_initıp")]
+    partial class initıp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,9 +94,6 @@ namespace GoodChildren.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Opisanie")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
@@ -104,10 +103,7 @@ namespace GoodChildren.Migrations
                     b.Property<bool>("State")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Vladelec")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VladelecId")
+                    b.Property<int>("Vladelec")
                         .HasColumnType("int");
 
                     b.Property<string>("Volonts")
@@ -118,9 +114,6 @@ namespace GoodChildren.Migrations
 
                     b.Property<int>("Zanyata")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Zayavki")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
