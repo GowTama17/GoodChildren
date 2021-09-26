@@ -31,6 +31,9 @@ namespace GoodChildren.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            User Im = db.Users.FirstOrDefault(u => u.LoginEmail == User.Identity.Name);
+            int Coins = Im.Coins;
+            ViewBag.Coins = Coins;
             List<User> Test = db.Users.ToList();
             List<UserView> Model = new List<UserView>();
             for (int i = 0; i < Test.Count; i++)
