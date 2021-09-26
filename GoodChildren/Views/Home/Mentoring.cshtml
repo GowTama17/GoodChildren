@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace GoodChildren.Views.Home
-{
-    public class Mentoring
-    {
+﻿@model int 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +10,7 @@ namespace GoodChildren.Views.Home
 <body>
     <div class="container">
         <div class="header">
-            <img src="./img/logo.png" class="header__logo" />
+            <img src="/img/logo.png" class="header__logo" />
             <div class="header__nav d-flex justify-between">
                 <a href="#" class="header__nav-item">Главная</a>
                 <a href="#" class="header__nav-item">Мероприятия</a>
@@ -27,11 +19,11 @@ namespace GoodChildren.Views.Home
                 <a href="#" class="header__nav-item">Блог</a>
             </div>
             <div class="coin">
-                <img src="./img/coin.png" class='coin__img'>
-                <p class="coin__count">144</p>
+                <img src="/img/coin.png" class='coin__img'>
+                <p class="coin__count">@Model</p>
             </div>
             <div class="header__user d-flex">
-                <img src="./img/user-img.png" class="header__user-img" />
+                <img src="/img/user-img.png" class="header__user-img" />
             </div>
         </div>
     </div>

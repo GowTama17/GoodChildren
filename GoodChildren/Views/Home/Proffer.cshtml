@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace GoodChildren.Views.Home
-{
-    public class Proffer
-    {
+﻿@model int 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +21,7 @@ namespace GoodChildren.Views.Home
             </div>
             <div class="coin">
                 <img src="/img/coin.png" class='coin__img'>
-                <p class="coin__count">144</p>
+                <p class="coin__count">@Model</p>
             </div>
             <div class="header__user d-flex">
                 <img src="/img/user-img.png" class="header__user-img" />
@@ -121,5 +113,4 @@ namespace GoodChildren.Views.Home
     <script src="/js/pages-script.js"></script>
 </body>
 </html>
-    }
-}
+
