@@ -206,6 +206,7 @@ body {
   font-size: 24px;
   color: #1e3163;
   font-weight: 400;
+  position:relative;
   font-family: "Euclid Circular A";
   width: 100%;
   margin: 0 auto 80px;
@@ -236,7 +237,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 0 178px;
+ margin: auto;
 }
 
 .submenu__items > div {
@@ -247,6 +248,8 @@ body {
   cursor: pointer;
   width: 160px;
   height: 54px;
+  position: absolute;
+  right: -10px;
   background-color: #fff;
   border-radius: 12px;
   -webkit-box-shadow: 0 5px 20px rgba(144, 152, 161, 0.06);
@@ -265,6 +268,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+          transition: .3s all;
 }
 
 .submenu__add:hover {
