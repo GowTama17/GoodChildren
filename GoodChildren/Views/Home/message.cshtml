@@ -125,7 +125,7 @@ const hubConnection = new signalR.HubConnectionBuilder()
             LookMeseng.append("UserId", SenderId);
             LookMeseng.append("ChatId", chatId);
             LookMeseng.append("State", false);
-            postServ(LookMeseng, "/Home/LookMesseng")
+            //postServ(LookMeseng, "/Home/LookMesseng")
         }
 
 });
@@ -222,7 +222,7 @@ const hubConnection = new signalR.HubConnectionBuilder()
         LookMeseng.append("UserId", SenderId);
         LookMeseng.append("ChatId", chatId);
         LookMeseng.append("State", false);
-        postServ(LookMeseng, "/Home/LookMesseng")
+        //postServ(LookMeseng, "/Home/LookMesseng")
     const isValid = (str) =>{
     return !/[~`#$\^&\[\]\\';/{}|\\<>]/g.test(str);
 }
