@@ -44,6 +44,18 @@ namespace GoodChildren.Controllers
             ViewBag.Coins = Im.Coins;
             return View(model);
         }
+        public IActionResult Proffer()
+        {
+            User Im = db.Users.FirstOrDefault(u => u.LoginEmail == User.Identity.Name);
+            int Coins = Im.Coins;
+            return View(Coins);
+        }
+        public IActionResult Mentoring()
+        {
+            User Im = db.Users.FirstOrDefault(u => u.LoginEmail == User.Identity.Name);
+            int Coins = Im.Coins;
+            return View(Coins);
+        }
         [HttpPost]
         public async void AddEvents(SobytiyaFile model)
         {
