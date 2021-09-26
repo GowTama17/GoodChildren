@@ -40,71 +40,72 @@
                                 </g>
                             </svg>
                         </div>
-                        <div class="form-add">
-                            <div class="form-add__top">
-                                <div class="form-add__image" id="image-grid">
-                                    <input type="file" id="file-uploader" accept=".jpg, .jpeg, .png">
-                                </div>
-                                <div class="form-add__right">
-                                    <label class="form-add__title" for="form-add__title">
-                                        <span>*</span>
-                                        Добавьте заголовок
-                                    </label>
-                                    <input type="text" id="form-add__title" class='form-add__info form-add__title-form'>
-                                    <label class="form-add__title" for="form-add__description">
-                                        <span>*</span>
-                                        Добавьте описание
-                                    </label>
-                                    <textarea id="form-add__description" class='form-add__info form-add__description-form'></textarea>
-
-                                </div>
-                            </div>
-                            <div class="form-add__bottom">
-                                <div class="form-add__one">
-                                    <label class="form-add__title" for="form-add__people">
-                                        <span>*</span>
-                                        Добавьте количество участников
-                                    </label>
-                                    <input type="text" id="form-add__people" class='form-add__info form-add__short'>
-                                    <label class="form-add__title" for="form-add__phone">
-                                        <span>*</span>
-                                        Добавьте номер телефона
-                                    </label>
-                                    <input type="text" id="form-add__phone" class='form-add__info form-add__short'>
-                                    <label class="form-add__title" for="form-add__people adress">
-                                        <span>*</span>
-                                        Добавьте адрес проведения
-                                    </label>
-                                    <input type="text" id="form-add__adress" class='form-add__info form-add__short'>
-                                </div>
-                                <div class="line"></div>
-                                <div class="form-add__two">
-                                    <h1>Дополнительно</h1>
-                                    <label class="form-add__title" for="form-add__sponsor">
-                                        <input type="checkbox" id="form-add__sponsor">
-                                        Набор спонсоров
-                                    </label>
-                                    <input type="text" name="form-add__adress" class='form-add__info form-add__short one-pole'>
-                                    <label class="form-add__title" for="form-add__vol">
-                                        <input type="checkbox" id="form-add__vol">
-                                        Набор волонтеров
-                                    </label>
-                                    <input type="text" name="form-add__adress" class='form-add__info form-add__short two-pole'>
-                                </div>
-                            </div>
-                            <div class="form-add__footer">
-                                <div class="form-add__footer_wrap">
-                                    <div class="request-block">
-                                        <input type="checkbox" id="on-request">
-                                        <label for="on-request">По заявкам</label>
+                        <form action="AddEvents" method="post" EncType="multipart/form-data">
+                            <div class="form-add">
+                                <div class="form-add__top">
+                                    <div class="form-add__image" id="image-grid">
+                                        <input name="files" type="file" id="file-uploader">
                                     </div>
-                                    <input type="submit" value="Добавить" class="form-add__btn">
+                                    <div class="form-add__right">
+                                        <label class="form-add__title" for="form-add__title">
+                                            <span>*</span>
+                                            Добавьте заголовок
+                                        </label>
+                                        <input name="Name" type="text" id="form-add__title" class='form-add__info form-add__title-form'>
+                                        <label class="form-add__title" for="form-add__description">
+                                            <span>*</span>
+                                            Добавьте описание
+                                        </label>
+                                        <textarea name="Opisanie" id="form-add__description" class='form-add__info form-add__description-form'></textarea>
+
+                                    </div>
                                 </div>
+                                <div class="form-add__bottom">
+                                    <div class="form-add__one">
+                                        <label class="form-add__title" for="form-add__people">
+                                            <span>*</span>
+                                            Добавьте количество участников
+                                        </label>
+                                        <input name="Mesta" type="text" id="form-add__people" class='form-add__info form-add__short'>
+                                        <label class="form-add__title" for="form-add__phone">
+                                            <span>*</span>
+                                            Добавьте номер телефона
+                                        </label>
+                                        <input name="Contact" type="text" id="form-add__phone" class='form-add__info form-add__short'>
+                                        <label class="form-add__title" for="form-add__people adress">
+                                            <span>*</span>
+                                            Добавьте адрес проведения
+                                        </label>
+                                        <input name="Adress" type="text" id="form-add__adress" class='form-add__info form-add__short'>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="form-add__two">
+                                        <h1>Дополнительно</h1>
+                                        <label class="form-add__title" for="form-add__sponsor">
+                                            <input type="checkbox" id="form-add__sponsor">
+                                            Набор спонсоров
+                                        </label>
+                                        <input asp-for="Spons" type="text" name="form-add__adress" class='form-add__info form-add__short one-pole'>
+                                        <label class="form-add__title" for="form-add__vol">
+                                            <input type="checkbox" id="form-add__vol">
+                                            Набор волонтеров
+                                        </label>
+                                        <input name="Volonts" type="text" name="form-add__adress" class='form-add__info form-add__short two-pole'>
+                                    </div>
+                                </div>
+                                <div class="form-add__footer">
+                                    <div class="form-add__footer_wrap">
+                                        <div class="request-block">
+                                            <input name="Zayavki" type="checkbox" id="on-request">
+                                            <label for="on-request">По заявкам</label>
+                                        </div>
+                                        <input type="submit" value="Добавить" class="form-add__btn">
+                                    </div>
 
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-
                 </div>
 
                 <div class="submenu">
