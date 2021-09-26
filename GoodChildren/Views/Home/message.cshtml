@@ -87,6 +87,7 @@
     </div>
     <script src="https://unpkg.com/@@microsoft/signalr@3.1.0/dist/browser/signalr.min.js"></script>
     <script charset="utf-8" type="text/javascript">
+        
 let chatId = @Model.chatId;
     let SenderId = @Model.SenderId;
     let SenderName = "@Model.SenderName";
@@ -124,7 +125,7 @@ const hubConnection = new signalR.HubConnectionBuilder()
             LookMeseng.append("UserId", SenderId);
             LookMeseng.append("ChatId", chatId);
             LookMeseng.append("State", false);
-            (!coins.classList.contains("active"))? postServ(LookMeseng, "/Home/LookMesseng"): null;
+            postServ(LookMeseng, "/Home/LookMesseng")
         }
 
 });
@@ -155,7 +156,9 @@ const hubConnection = new signalR.HubConnectionBuilder()
             data.append("ChatLine", message);
             data.append("LineTime", `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`);
             postServ(data, "/Home/message")
-            hubConnection.invoke("Send", messa.ChatLine, messa.ChatId, messa.ReciverId, time, to);
+            let UltraDataTime = new Date()
+            console.log(messa.ChatLine, messa.ChatId, messa.ReciverId, UltraDataTime, to)
+            hubConnection.invoke("Send", messa.ChatLine, messa.ChatId, messa.ReciverId, UltraDataTime, to);
             document.querySelector(".chat__message-value").value = ""
         }
 });
@@ -215,11 +218,16 @@ const hubConnection = new signalR.HubConnectionBuilder()
         commentElem.appendChild(comment);*/
         comments.appendChild(commentElem);
     }
-
+        let LookMeseng = new FormData;
+        LookMeseng.append("UserId", SenderId);
+        LookMeseng.append("ChatId", chatId);
+        LookMeseng.append("State", false);
+        postServ(LookMeseng, "/Home/LookMesseng")
     const isValid = (str) =>{
     return !/[~`#$\^&\[\]\\';/{}|\\<>]/g.test(str);
 }
-    hubConnection.start();
+        hubConnection.start();
+        
     </script>
 </body>
 </html>

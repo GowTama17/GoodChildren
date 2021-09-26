@@ -32,6 +32,10 @@ namespace GoodChildren.Controllers
                 Model.Add(new UserView() { Id = Test[i].Id, Email = Test[i].LoginEmail });
             return View(Model);
         }
+        public IActionResult Events()
+        {
+            return View();
+        }
         public IActionResult message(int? id)
         {
             List<User> Test = db.Users.ToList();
@@ -82,11 +86,12 @@ namespace GoodChildren.Controllers
             else return null;
         }
         [HttpPost]
-        public async void LookMesseng(LookMeseng model, UserContext db)
+        public void LookMesseng(LookMeseng model)
         {
             ChatState test = db.ChatStates.FirstOrDefault(u => u.UserId == model.UserId && u.ChatId == model.ChatId);
             test.State = model.State;
-            await db.SaveChangesAsync();
+            db.ChatStates.Update(test);
+            db.SaveChanges();
         }
         [HttpPost]
         public async void Coins(CoinsesModel model)
